@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set release variables
+        run: |-
+          echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Download source dat files
+        run: |-
+          curl -fsSL --tlsv1.3 -o c4u-geoip.dat \
+            https://raw.githubusercontent.com/Chocolate4U/Iran-v2ray-rules/release/geoip.dat
+          curl -fsSL --tlsv1.3 -o c4u-geosite.dat \
+            https://raw.githubusercontent.com/Chocolate4U/Iran-v2ray-rules/release/geosite.dat
+          curl -fsSL --tlsv1.3 -o ls-geoip.dat \
+            https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat
+          curl -fsSL --tlsv1.3 -o ls-geosite.dat \
+            https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geosite.dat
+          curl -fsSL --tlsv1.3 -o v2fly-geoip.dat \
+            https://github.com/v2fly/geoip/releases/latest/download/geoip.dat
+          curl -fsSL --tlsv1.3 -o v2fly-geosite.dat \
+            https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat
+          curl -fsSL --tlsv1.3 -o iran.dat \
+            https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran.dat
+
+      - name: Generate geoip.dat
+        run: go run ./cmd/geoip -config geoip-config.json
+
+      - name: Generate geosite.dat
+        run: go run ./cmd/geosite -config geosite-config.json
+
+      - name: Prepare release artifacts
+        run: |-
+          mkdir -p release
+          cp geoip.dat geosite.dat release/
+
+      - name: Push artifacts to release branch
+        run: |-
+          cd release || exit 1
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release
+          git add .
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin release
+
+      - name: Create release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          files: |-
+            release/geoip.dat
+            release/geosite.dat
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
