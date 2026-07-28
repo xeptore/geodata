@@ -3,6 +3,9 @@ name: Release
 on:
   schedule:
     - cron: "0 5 * * *"
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
