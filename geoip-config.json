@@ -2,7 +2,7 @@
     "output": "geoip.dat",
     "categories": [
         {
-            "name": "ORYN-PROXY",
+            "name": "ORYN-BLOCK",
             "sources": [
                 {
                     "file": "c4u-geoip.dat",
