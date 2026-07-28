@@ -1,0 +1,43 @@
+{
+    "output": "geoip.dat",
+    "categories": [
+        {
+            "name": "ORYN-PROXY",
+            "sources": [
+                {
+                    "file": "c4u-geoip.dat",
+                    "categories": [
+                        "malware",
+                        "phishing"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ORYN-DIRECT",
+            "sources": [
+                {
+                    "file": "v2fly-geoip.dat",
+                    "categories": [
+                        "private",
+                        "ir"
+                    ]
+                },
+                {
+                    "file": "ls-geoip.dat",
+                    "categories": [
+                        "private",
+                        "ir"
+                    ]
+                },
+                {
+                    "file": "c4u-geoip.dat",
+                    "categories": [
+                        "ir",
+                        "private"
+                    ]
+                }
+            ]
+        }
+    ]
+}
