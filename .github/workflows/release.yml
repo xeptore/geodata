@@ -46,16 +46,26 @@ jobs:
           curl -fsSL --tlsv1.3 -o iran.dat \
             https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran.dat
 
-      - name: Generate geoip.dat
-        run: go run ./cmd/geoip -config geoip-config.json
-
-      - name: Generate geosite.dat
-        run: go run ./cmd/geosite -config geosite-config.json
-
-      - name: Prepare release artifacts
+      - name: Generate dat files
         run: |-
-          mkdir -p release
-          cp geoip.dat geosite.dat release/
+          mkdir -p release artifacts
+
+          for config_dir in config/*/; do
+            name="$(basename "$config_dir")"
+            mkdir -p "release/${name}"
+
+            if [ -f "config/${name}/geoip.json" ]; then
+              go run ./cmd/geoip -config "config/${name}/geoip.json"
+              mv geoip.dat "release/${name}/geoip.dat"
+              cp "release/${name}/geoip.dat" "artifacts/${name}_geoip.dat"
+            fi
+
+            if [ -f "config/${name}/geosite.json" ]; then
+              go run ./cmd/geosite -config "config/${name}/geosite.json"
+              mv geosite.dat "release/${name}/geosite.dat"
+              cp "release/${name}/geosite.dat" "artifacts/${name}_geosite.dat"
+            fi
+          done
 
       - name: Push artifacts to release branch
         run: |-
@@ -75,8 +85,6 @@ jobs:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.TAG_NAME }}
           draft: false
-          files: |-
-            release/geoip.dat
-            release/geosite.dat
+          files: artifacts/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

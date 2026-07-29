@@ -1,0 +1,92 @@
+{
+    "output": "geosite.dat",
+    "categories": [
+        {
+            "name": "ORYN-PROXY",
+            "sources": [
+                {
+                    "file": "iran.dat",
+                    "categories": [
+                        "proxy"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ORYN-DIRECT",
+            "sources": [
+                {
+                    "file": "iran.dat",
+                    "categories": [
+                        "other",
+                        "ir"
+                    ]
+                },
+                {
+                    "file": "c4u-geosite.dat",
+                    "categories": [
+                        "PRIVATE",
+                        "IR",
+                        "CATEGORY-IR"
+                    ]
+                },
+                {
+                    "file": "ls-geosite.dat",
+                    "categories": [
+                        "PRIVATE",
+                        "CATEGORY-IR"
+                    ]
+                },
+                {
+                    "file": "v2fly-geosite.dat",
+                    "categories": [
+                        "PRIVATE",
+                        "CATEGORY-IR"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ORYN-BLOCK",
+            "sources": [
+                {
+                    "file": "iran.dat",
+                    "categories": [
+                        "ads"
+                    ]
+                },
+                {
+                    "file": "c4u-geosite.dat",
+                    "categories": [
+                        "ads",
+                        "category-ads",
+                        "category-ads-all",
+                        "category-ads-ir",
+                        "category-public-tracker",
+                        "malware",
+                        "cryptominers",
+                        "phishing"
+                    ]
+                },
+                {
+                    "file": "ls-geosite.dat",
+                    "categories": [
+                        "category-ads",
+                        "category-ads-ir",
+                        "category-ads-all",
+                        "category-public-tracker"
+                    ]
+                },
+                {
+                    "file": "v2fly-geosite.dat",
+                    "categories": [
+                        "category-ads",
+                        "category-ads-all",
+                        "category-ads-ir",
+                        "category-public-tracker"
+                    ]
+                }
+            ]
+        }
+    ]
+}

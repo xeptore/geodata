@@ -2,24 +2,14 @@
     "output": "geosite.dat",
     "categories": [
         {
-            "name": "ORYN-PROXY",
-            "sources": [
-                {
-                    "file": "iran.dat",
-                    "categories": [
-                        "proxy"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "ORYN-DIRECT",
+            "name": "ORYN-BLOCK",
             "sources": [
                 {
                     "file": "iran.dat",
                     "categories": [
                         "other",
-                        "ir"
+                        "ir",
+                        "ads"
                     ]
                 },
                 {
@@ -27,37 +17,7 @@
                     "categories": [
                         "PRIVATE",
                         "IR",
-                        "CATEGORY-IR"
-                    ]
-                },
-                {
-                    "file": "ls-geosite.dat",
-                    "categories": [
-                        "PRIVATE",
-                        "CATEGORY-IR"
-                    ]
-                },
-                {
-                    "file": "v2fly-geosite.dat",
-                    "categories": [
-                        "PRIVATE",
-                        "CATEGORY-IR"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "ORYN-BLOCK",
-            "sources": [
-                {
-                    "file": "iran.dat",
-                    "categories": [
-                        "ads"
-                    ]
-                },
-                {
-                    "file": "c4u-geosite.dat",
-                    "categories": [
+                        "CATEGORY-IR",
                         "ads",
                         "category-ads",
                         "category-ads-all",
@@ -71,14 +31,19 @@
                 {
                     "file": "ls-geosite.dat",
                     "categories": [
+                        "PRIVATE",
+                        "CATEGORY-IR",
                         "category-ads",
                         "category-ads-ir",
+                        "category-ads-all",
                         "category-public-tracker"
                     ]
                 },
                 {
                     "file": "v2fly-geosite.dat",
                     "categories": [
+                        "PRIVATE",
+                        "CATEGORY-IR",
                         "category-ads",
                         "category-ads-all",
                         "category-ads-ir",
