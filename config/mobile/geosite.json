@@ -2,7 +2,7 @@
     "output": "geosite.dat",
     "categories": [
         {
-            "name": "ORYN-PROXY",
+            "name": "PROXY",
             "sources": [
                 {
                     "file": "iran.dat",
@@ -13,7 +13,7 @@
             ]
         },
         {
-            "name": "ORYN-DIRECT",
+            "name": "DIRECT",
             "sources": [
                 {
                     "file": "iran.dat",
@@ -47,7 +47,7 @@
             ]
         },
         {
-            "name": "ORYN-BLOCK",
+            "name": "BLOCK",
             "sources": [
                 {
                     "file": "iran.dat",

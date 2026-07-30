@@ -2,7 +2,7 @@
     "output": "geosite.dat",
     "categories": [
         {
-            "name": "ORYN-BLOCK",
+            "name": "BLOCK",
             "sources": [
                 {
                     "file": "iran.dat",

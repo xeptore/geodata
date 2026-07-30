@@ -2,7 +2,7 @@
     "output": "geoip.dat",
     "categories": [
         {
-            "name": "ORYN-BLOCK",
+            "name": "BLOCK",
             "sources": [
                 {
                     "file": "v2fly-geoip.dat",
