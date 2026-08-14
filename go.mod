@@ -1,6 +1,6 @@
 module github.com/xeptore/geodata
 
-go 1.26.5
+go 1.26.6
 
 require (
 	github.com/v2fly/v2ray-core/v5 v5.52.0
