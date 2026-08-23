@@ -58,16 +58,14 @@ jobs:
               go run ./cmd/geoip -config "config/${name}/geoip.json"
               mv geoip.dat "release/${name}/geoip.dat"
               cp "release/${name}/geoip.dat" "artifacts/${name}_geoip.dat"
-              (cd "release/${name}" && sha256sum geoip.dat > geoip.dat.sha256)
-              (cd artifacts && sha256sum "${name}_geoip.dat" > "${name}_geoip.dat.sha256")
+              sha256sum "release/${name}/geoip.dat" | cut -d' ' -f1 | tee "release/${name}/geoip.dat.sha256" "artifacts/${name}_geoip.dat.sha256" > /dev/null
             fi
 
             if [ -f "config/${name}/geosite.json" ]; then
               go run ./cmd/geosite -config "config/${name}/geosite.json"
               mv geosite.dat "release/${name}/geosite.dat"
               cp "release/${name}/geosite.dat" "artifacts/${name}_geosite.dat"
-              (cd "release/${name}" && sha256sum geosite.dat > geosite.dat.sha256)
-              (cd artifacts && sha256sum "${name}_geosite.dat" > "${name}_geosite.dat.sha256")
+              sha256sum "release/${name}/geosite.dat" | cut -d' ' -f1 | tee "release/${name}/geosite.dat.sha256" "artifacts/${name}_geosite.dat.sha256" > /dev/null
             fi
           done
 
