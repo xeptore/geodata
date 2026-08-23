@@ -86,6 +86,7 @@ jobs:
         with:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.TAG_NAME }}
+          target_commitish: release
           draft: false
           files: artifacts/*
         env:
