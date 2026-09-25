@@ -49,6 +49,17 @@ jobs:
       - name: Generate dat files
         run: |-
           mkdir -p release artifacts
+          shopt -s nullglob
+
+          publish() {
+            local src="$1"
+            local release_dest="$2"
+            local artifact_name="$3"
+
+            mv "$src" "$release_dest"
+            cp "$release_dest" "artifacts/${artifact_name}"
+            sha256sum "$release_dest" | cut -d' ' -f1 | tee "${release_dest}.sha256" "artifacts/${artifact_name}.sha256" > /dev/null
+          }
 
           for config_dir in config/*/; do
             name="$(basename "$config_dir")"
@@ -56,16 +67,20 @@ jobs:
 
             if [ -f "config/${name}/geoip.json" ]; then
               go run ./cmd/geoip -config "config/${name}/geoip.json"
-              mv geoip.dat "release/${name}/geoip.dat"
-              cp "release/${name}/geoip.dat" "artifacts/${name}_geoip.dat"
-              sha256sum "release/${name}/geoip.dat" | cut -d' ' -f1 | tee "release/${name}/geoip.dat.sha256" "artifacts/${name}_geoip.dat.sha256" > /dev/null
+              publish geoip.dat "release/${name}/geoip.dat" "${name}_geoip.dat"
+              for srs in geoip-*.srs; do
+                base="$(basename "$srs")"
+                publish "$srs" "release/${name}/${base}" "${name}_${base}"
+              done
             fi
 
             if [ -f "config/${name}/geosite.json" ]; then
               go run ./cmd/geosite -config "config/${name}/geosite.json"
-              mv geosite.dat "release/${name}/geosite.dat"
-              cp "release/${name}/geosite.dat" "artifacts/${name}_geosite.dat"
-              sha256sum "release/${name}/geosite.dat" | cut -d' ' -f1 | tee "release/${name}/geosite.dat.sha256" "artifacts/${name}_geosite.dat.sha256" > /dev/null
+              publish geosite.dat "release/${name}/geosite.dat" "${name}_geosite.dat"
+              for srs in geosite-*.srs; do
+                base="$(basename "$srs")"
+                publish "$srs" "release/${name}/${base}" "${name}_${base}"
+              done
             fi
           done
 

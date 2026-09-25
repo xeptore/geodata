@@ -13,6 +13,8 @@ import (
 
 	"github.com/v2fly/v2ray-core/v5/app/router/routercommon"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/xeptore/geodata/internal/ruleset"
 )
 
 type Config struct {
@@ -99,6 +101,10 @@ func run(configPath string) error {
 
 	if err := verifyGeoIPDAT(config.Output); err != nil {
 		return fmt.Errorf("verify output: %w", err)
+	}
+
+	if err := ruleset.WriteGeoIP(config.Output, output); err != nil {
+		return err
 	}
 
 	fmt.Printf(

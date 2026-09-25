@@ -12,6 +12,8 @@ import (
 
 	"github.com/v2fly/v2ray-core/v5/app/router/routercommon"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/xeptore/geodata/internal/ruleset"
 )
 
 type Config struct {
@@ -87,6 +89,10 @@ func run(configPath string) error {
 
 	if err := verifyGeoSiteDAT(config.Output); nil != err {
 		return fmt.Errorf("verify generated file: %w", err)
+	}
+
+	if err := ruleset.WriteGeosite(config.Output, outputList); nil != err {
+		return err
 	}
 
 	fmt.Printf("\nWritten %d categories to %s\n", len(outputList.Entry), config.Output)
