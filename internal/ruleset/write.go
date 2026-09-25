@@ -17,7 +17,7 @@ import (
 const RuleSetVersion = C.RuleSetVersion2
 
 func writeRuleSet(datPath, kind, category string, rule option.DefaultHeadlessRule) (string, error) {
-	name := strings.ToLower(strings.TrimSpace(category))
+	name := strings.TrimSpace(category)
 	if name == "" {
 		return "", fmt.Errorf("empty %s category name", kind)
 	}
