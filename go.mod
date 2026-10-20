@@ -1,6 +1,6 @@
 module github.com/xeptore/geodata
 
-go 1.27.2
+go 1.27.3
 
 require (
 	github.com/sagernet/sing v0.9.6-0.20260922013354-87c33f17688f
